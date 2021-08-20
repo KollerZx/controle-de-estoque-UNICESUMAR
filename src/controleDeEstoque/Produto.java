@@ -54,12 +54,5 @@ public class Produto {
         System.out.println();
     }
 
-    public static int findProduct(Produto elemento[], String name){
-        for(int i=0; i < elemento.length; i++ ){
-            if(elemento[i].getNome() == name){
-                return i;
-            }
-        }
-        return -1;
-    }
+
 }

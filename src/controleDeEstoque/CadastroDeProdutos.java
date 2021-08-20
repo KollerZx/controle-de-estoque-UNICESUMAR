@@ -3,13 +3,41 @@ package controleDeEstoque;
 
 import java.util.Scanner;
 
-public class CadastroDeProdutos extends Produto{
+public class CadastroDeProdutos {
+    private Produto[] listaDeProdutos;
+    private int qtdProdutos;
+    /*
+   public CadastroDeProdutos(String nome, float precoUnitario, int unidade, int qtdEstoque) {
 
-    public CadastroDeProdutos(String nome, float precoUnitario, int unidade, int qtdEstoque) {
+       super(nome, precoUnitario, unidade, qtdEstoque);
 
-        super(nome, precoUnitario, unidade, qtdEstoque);
+   }
+   */
+
+
+    public CadastroDeProdutos(int capacidade){
+        this.listaDeProdutos = new Produto[capacidade];
+        this.qtdProdutos = 0;
+    }
+
+    public Produto[] getListaDeProdutos(){
+        return this.listaDeProdutos;
+    }
+
+    public void addProduto(Produto elemento) throws Exception {
+        // Verifica se há espaço no estoque para mais produtos
+        if(this.qtdProdutos < this.listaDeProdutos.length){
+            this.listaDeProdutos[this.qtdProdutos] = elemento;
+            this.qtdProdutos++;
+        }else{
+            throw new Exception("Não há mais espaço no estoque da empresa");
+        }
 
     }
+
+
+
+
 
     public static void menu(){
         System.out.println("CADASTRO DE PRODUTOS:");
@@ -23,9 +51,9 @@ public class CadastroDeProdutos extends Produto{
 
     }
 
-    public static int findProduct(Produto elemento[], String nome){
+    public static int findProduct(Produto elemento[], String name){
         for(int i=0; i < elemento.length; i++ ){
-            if(elemento[i].getNome().equalsIgnoreCase(nome)){
+            if(elemento[i].getNome() == name){
                 return i;
             }
         }

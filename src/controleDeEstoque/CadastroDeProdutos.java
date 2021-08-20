@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class CadastroDeProdutos extends Produto{
 
-
     public CadastroDeProdutos(String nome, float precoUnitario, int unidade, int qtdEstoque) {
 
         super(nome, precoUnitario, unidade, qtdEstoque);
@@ -23,5 +22,15 @@ public class CadastroDeProdutos extends Produto{
         System.out.println("OPÇÃO: ");
 
     }
+
+    public static int findProduct(Produto elemento[], String nome){
+        for(int i=0; i < elemento.length; i++ ){
+            if(elemento[i].getNome().equalsIgnoreCase(nome)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
 
 }

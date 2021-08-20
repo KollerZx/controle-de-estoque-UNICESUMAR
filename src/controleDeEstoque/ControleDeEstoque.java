@@ -1,6 +1,7 @@
 package controleDeEstoque;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Scanner;
 
@@ -12,13 +13,13 @@ public class ControleDeEstoque {
     static int DEPARTAMENTOS = 10;
     static int tam = 0;
 
-    /* INSTANCIA UMA LISTA DE PRODUTOS, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
-    static Produto listaDeProdutos[] = new Produto[DEPARTAMENTOS];
-
     public static void main(String[] args) {
         int opcao=9;
         Scanner scan = new Scanner(System.in);
-        ControleDeEstoque estoque = new ControleDeEstoque();
+
+        /* INSTANCIA UMA LISTA DE PRODUTOS, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
+        Produto listaDeProdutos[] = new Produto[DEPARTAMENTOS];
+
         while(opcao!=0){
             menuPrincipal();
             System.out.print("OPÇÃO: ");
@@ -33,6 +34,21 @@ public class ControleDeEstoque {
                     if(opt == 1){
                         System.out.println("Digite o nome do Produto:");
                         String nome = scan.next();
+
+                        /*if((tam != 0) && (listaDeProdutos[tam].getNome() != null) ){
+                            if(Produto.findProduct(listaDeProdutos, nome) != -1){
+                                System.out.println("Ja existe um produto com esse nome");
+                            }
+                        }*/
+                        if(tam !=0){
+                            for(int i=0; i < tam; i++ ){
+                                if(listaDeProdutos[i].getNome().equalsIgnoreCase(nome)){
+                                    System.out.println("Ja existe um produto com esse nome");
+                                    break;
+                                }
+                            }
+                            break;
+                        }
                         System.out.println("Informe o preço Unitário:");
                         float preco = scan.nextFloat();
                         System.out.println("Informe a unidade do produto:");
@@ -40,7 +56,7 @@ public class ControleDeEstoque {
                         System.out.println("Informe a quantidade de produtos a somar no estoque:");
                         int qtd = scan.nextInt();
                         scan.nextLine();
-                        estoque.listaDeProdutos[tam] = new CadastroDeProdutos(nome, preco, unidade, qtd);
+                        listaDeProdutos[tam] = new CadastroDeProdutos(nome, preco, unidade, qtd);
                         tam++;
 
                         break;
@@ -48,13 +64,13 @@ public class ControleDeEstoque {
                     else if(opt == 3){
                         //retorna o produto armazenado, incluir essa instrução na rotina de consulta
 
-                        if(estoque.listaDeProdutos[0] == null) {
+                        if(listaDeProdutos[0] == null) {
                             System.out.println("Não existem produtos cadastrados");
                             continue;
                         }
-                        for(int i=0; i < estoque.listaDeProdutos.length; i++){
+                        for(int i=0; i < listaDeProdutos.length; i++){
 
-                            estoque.listaDeProdutos[i].getProduto();
+                            listaDeProdutos[i].getProduto();
                         }
 
                         continue;

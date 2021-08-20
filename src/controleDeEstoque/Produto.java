@@ -7,6 +7,7 @@ public class Produto {
     private int qtdEstoque;
 
     public Produto(String nome, float precoUnitario, int unidade, int qtdEstoque){
+
         setNome(nome);
         setPrecoUnitario(precoUnitario);
         setUnidade(unidade);
@@ -51,5 +52,14 @@ public class Produto {
         System.out.println("Unidade: " + getUnidade());
         System.out.println("Quantidade: " + getQtdEstoque());
         System.out.println();
+    }
+
+    public static int findProduct(Produto elemento[], String name){
+        for(int i=0; i < elemento.length; i++ ){
+            if(elemento[i].getNome() == name){
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -50,5 +50,6 @@ public class Produto {
         System.out.println("Preço: " + getPrecoUnitario());
         System.out.println("Unidade: " + getUnidade());
         System.out.println("Quantidade: " + getQtdEstoque());
+        System.out.println();
     }
 }

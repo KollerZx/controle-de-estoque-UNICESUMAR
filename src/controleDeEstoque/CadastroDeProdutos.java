@@ -7,7 +7,9 @@ public class CadastroDeProdutos extends Produto{
 
 
     public CadastroDeProdutos(String nome, float precoUnitario, int unidade, int qtdEstoque) {
+
         super(nome, precoUnitario, unidade, qtdEstoque);
+
     }
 
     public static void menu(){

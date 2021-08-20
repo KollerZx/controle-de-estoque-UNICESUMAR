@@ -1,11 +1,20 @@
 package controleDeEstoque;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Scanner;
 
 public class ControleDeEstoque {
-    static int ESTOQUE_MAXIMO = 10;
+    /* QUANTIDADE DE TIPOS DE PRODUTOS QUE A EMPRESA TRABALHA
+    *  TEM POR FINALIDADE DELIMITAR O CADASTRO DE 10 TIPOS DE PRODUTOS,
+    *  VALOR ESSE QUE PODERÁ SER ALTERADO CASO SE INCLUA UM NOVO TIPO / DEPARTAMENTO
+    * */
+    static int DEPARTAMENTOS = 10;
     static int tam = 0;
-    Produto listaDeProdutos[] = new Produto[ESTOQUE_MAXIMO];
+
+    /* INSTANCIA UMA LISTA DE PRODUTOS, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
+    static Produto listaDeProdutos[] = new Produto[DEPARTAMENTOS];
+
     public static void main(String[] args) {
         int opcao=9;
         Scanner scan = new Scanner(System.in);
@@ -16,6 +25,8 @@ public class ControleDeEstoque {
             opcao = scan.nextInt();
             scan.nextLine();
             switch (opcao){
+                case 0:
+                    continue;
                 case 1:
                     CadastroDeProdutos.menu();
                     int opt = scan.nextInt();
@@ -30,13 +41,34 @@ public class ControleDeEstoque {
                         int qtd = scan.nextInt();
                         scan.nextLine();
                         estoque.listaDeProdutos[tam] = new CadastroDeProdutos(nome, preco, unidade, qtd);
+                        tam++;
+
+                        break;
                     }
-                    //retorna o produto armazenado, incluir essa instrução na rotina de consulta
-                   //estoque.listaDeProdutos[0].getProduto();
+                    else if(opt == 3){
+                        //retorna o produto armazenado, incluir essa instrução na rotina de consulta
+
+                        if(estoque.listaDeProdutos[0] == null) {
+                            System.out.println("Não existem produtos cadastrados");
+                            continue;
+                        }
+                        for(int i=0; i < estoque.listaDeProdutos.length; i++){
+
+                            estoque.listaDeProdutos[i].getProduto();
+                        }
+
+                        continue;
+                    }
+                    else if(opt == 0){
+                        continue;
+                    }
+
+                    break;
+                default:
+                    System.out.println("Escolha uma opção válida");
+                    break;
             }
         };
-
-
     }
 
     static void menuPrincipal(){
@@ -48,5 +80,6 @@ public class ControleDeEstoque {
         System.out.println("0 - FINALIZAR");
 
     }
+
 
 }

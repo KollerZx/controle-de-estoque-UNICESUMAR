@@ -1,19 +1,9 @@
 package controleDeEstoque;
 
 
-import java.util.Scanner;
-
 public class CadastroDeProdutos {
     private Produto[] listaDeProdutos;
     private int qtdProdutos;
-    /*
-   public CadastroDeProdutos(String nome, float precoUnitario, int unidade, int qtdEstoque) {
-
-       super(nome, precoUnitario, unidade, qtdEstoque);
-
-   }
-   */
-
 
     public CadastroDeProdutos(int capacidade){
         this.listaDeProdutos = new Produto[capacidade];
@@ -26,19 +16,24 @@ public class CadastroDeProdutos {
 
     public void addProduto(Produto elemento) throws Exception {
         // Verifica se há espaço no estoque para mais produtos
-        if(this.qtdProdutos < this.listaDeProdutos.length){
+        if((this.qtdProdutos < this.listaDeProdutos.length) && (this.findProduct(elemento.getNome()) == -1)){
             this.listaDeProdutos[this.qtdProdutos] = elemento;
             this.qtdProdutos++;
         }else{
-            throw new Exception("Não há mais espaço no estoque da empresa");
+            throw new Exception("Não foi possivel adicionar o Produto, verifique se já não existe um produto com mesmo nome, ou se há espaço no estoque");
         }
 
     }
 
-
-
-
-
+    public int findProduct(String name){
+        if(this.qtdProdutos == 0){ return -1; }
+        for(int i=0; i < this.qtdProdutos; i++ ){
+            if(this.listaDeProdutos[i].getNome().equalsIgnoreCase(name)){
+                return i;
+            }
+        }
+        return -1;
+    }
     public static void menu(){
         System.out.println("CADASTRO DE PRODUTOS:");
         System.out.println("1.1 - INCLUSÃO");
@@ -51,14 +46,7 @@ public class CadastroDeProdutos {
 
     }
 
-    public static int findProduct(Produto elemento[], String name){
-        for(int i=0; i < elemento.length; i++ ){
-            if(elemento[i].getNome() == name){
-                return i;
-            }
-        }
-        return -1;
-    }
+
 
 
 }

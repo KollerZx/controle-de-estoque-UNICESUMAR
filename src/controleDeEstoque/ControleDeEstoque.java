@@ -1,8 +1,5 @@
 package controleDeEstoque;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Scanner;
 
 public class ControleDeEstoque {
@@ -11,7 +8,7 @@ public class ControleDeEstoque {
     *  VALOR ESSE QUE PODERÁ SER ALTERADO CASO SE INCLUA UM NOVO TIPO / DEPARTAMENTO
     * */
     static int DEPARTAMENTOS = 10;
-    static int tam = 0;
+    static int limite_estoque = 0;
 
     public static void main(String[] args) throws Exception {
         int opcao=9;
@@ -35,20 +32,6 @@ public class ControleDeEstoque {
                     if(opt == 1){
                         System.out.println("Digite o nome do Produto:");
                         String nome = scan.next();
-
-                        /*if(tam !=0){
-                            for(int i=0; i < tam; i++ ){
-
-                                if(estoque.getListaDeProdutos()[i].getNome().equalsIgnoreCase(nome)){
-                                    System.out.println("Ja existe um produto com esse nome");
-                                    break;
-                                }
-                            }
-                            break;
-                        }*/
-
-
-
                         System.out.println("Informe o preço Unitário:");
                         float preco = scan.nextFloat();
                         System.out.println("Informe a unidade do produto:");
@@ -57,7 +40,7 @@ public class ControleDeEstoque {
                         int qtd = scan.nextInt();
                         scan.nextLine();
                         estoque.addProduto(new Produto(nome,preco,unidade,qtd));
-                        tam++;
+                        limite_estoque++;
 
                         break;
                     }

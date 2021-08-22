@@ -10,6 +10,7 @@ public class Teste {
             CadastroDeProdutos estoque = new CadastroDeProdutos(5);
 
             estoque.addProduto(new Produto("Camiseta", 25, 1,10));
+            estoque.addProduto(new Produto("camiseta", 27, 1, 60));
         }catch (Exception e){
             e.printStackTrace();
         }

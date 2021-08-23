@@ -8,7 +8,6 @@ public class ControleDeEstoque {
     *  VALOR ESSE QUE PODERÁ SER ALTERADO CASO SE INCLUA UM NOVO TIPO / DEPARTAMENTO
     * */
     static int DEPARTAMENTOS = 10;
-    static int limite_estoque = 0;
 
     public static void main(String[] args) throws Exception {
         int opcao=9;
@@ -20,14 +19,13 @@ public class ControleDeEstoque {
 
         while(opcao!=0){
             menuPrincipal();
-            System.out.print("OPÇÃO: ");
             opcao = scan.nextInt();
             scan.nextLine();
             switch (opcao){
                 case 0:
                     continue;
                 case 1:
-                    CadastroDeProdutos.menu();
+                    CadastroDeProdutos.menuRegister();
                     int opt = scan.nextInt();
                     if(opt == 1){
                         System.out.println("Digite o nome do Produto:");
@@ -40,33 +38,29 @@ public class ControleDeEstoque {
                         int qtd = scan.nextInt();
                         scan.nextLine();
                         estoque.addProduto(new Produto(nome,preco,unidade,qtd));
-                        limite_estoque++;
 
                         break;
                     }
                     else if(opt == 3){
                         //retorna o produto armazenado, incluir essa instrução na rotina de consulta
+                        System.out.println("Digite o nome do produto que deseja consultar: ");
+                        String nome = scan.next();
+                        int indiceDoProduto = estoque.findProduct(nome);
 
-                        /*
-
-                        if(listaDeProdutos[0] == null) {
-                            System.out.println("Não existem produtos cadastrados");
-                            continue;
+                        if(indiceDoProduto > -1){
+                            Produto[] listaDeProdutos = estoque.getListaDeProdutos();
+                            listaDeProdutos[indiceDoProduto].getProduto();
                         }
-                        for(int i=0; i < listaDeProdutos.length; i++){
-
-                            listaDeProdutos[i].getProduto();
+                        else{
+                            System.out.println("Não existe produto com esse nome");
                         }
 
-                        continue;
 
-                        */
+                        break;
                     }
                     else if(opt == 0){
                         continue;
                     }
-
-                    break;
                 default:
                     System.out.println("Escolha uma opção válida");
                     break;
@@ -80,7 +74,8 @@ public class ControleDeEstoque {
         System.out.println("2 - MOVIMENTAÇÃO");
         System.out.println("3 - REAJUSTE DE PREÇOS");
         System.out.println("4 - RELATÓRIOS");
-        System.out.println("0 - FINALIZAR");
+        System.out.println("0 - FINALIZAR \n");
+        System.out.print("OPÇÃO: ");
 
     }
 

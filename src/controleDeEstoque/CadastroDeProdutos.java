@@ -15,12 +15,14 @@ public class CadastroDeProdutos {
     }
 
     public void addProduto(Produto elemento) throws Exception {
-        // Verifica se há espaço no estoque para mais produtos
-        if((this.qtdProdutos < this.listaDeProdutos.length) && (this.findProduct(elemento.getNome()) == -1)){
+        if(this.findProduct(elemento.getNome()) > -1){
+            throw new Exception("Já existe um produto cadastrado com o mesmo nome");
+        }
+        if(this.qtdProdutos < this.listaDeProdutos.length) {
             this.listaDeProdutos[this.qtdProdutos] = elemento;
             this.qtdProdutos++;
         }else{
-            throw new Exception("Não foi possivel adicionar o Produto, verifique se já não existe um produto com mesmo nome, ou se há espaço no estoque");
+            throw new Exception("Não foi possivel adicionar o Produto, não há espaço no estoque");
         }
 
     }
@@ -34,7 +36,7 @@ public class CadastroDeProdutos {
         }
         return -1;
     }
-    public static void menu(){
+    public static void menuRegister(){
         System.out.println("CADASTRO DE PRODUTOS:");
         System.out.println("1.1 - INCLUSÃO");
         System.out.println("1.2 - ALTERAÇÃO");

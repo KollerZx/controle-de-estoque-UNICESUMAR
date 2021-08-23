@@ -36,16 +36,19 @@ public class RegisterProducts {
         return -1;
     }
     public boolean validDataProducts(Product elemento) throws Exception {
-        var isValid = false;
+        var isValid = true;
         if(this.findProduct(elemento.getName()) > -1){
-            isValid = true;
+            isValid = false;
             throw new Exception("Já existe um produto cadastrado com o mesmo nome");
         }
-        if(this.qtdProdutos < this.listaDeProdutos.length) {
-            isValid = true;
+        if(this.qtdProdutos > this.listaDeProdutos.length) {
+            isValid = false;
             throw new Exception("Não foi possivel cadastrar o produto, pois não há mais espaço em estoque");
         }
-        //inserir validação para verificar se valor, unidade e qtd são maior que zero
+        if((elemento.getPriceUnit() <= 0) || (elemento.getUnit() <= 0 ) || (elemento.getQtdInventory() <= 0) ){
+            isValid = false;
+            throw new Exception("O Produto não pode ter valor, unidade, ou quantidade igual a zero");
+        }
 
         return isValid;
 

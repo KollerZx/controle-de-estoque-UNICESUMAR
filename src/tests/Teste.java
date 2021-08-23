@@ -12,6 +12,7 @@ public class Teste {
             RegisterProducts estoque = new RegisterProducts(5);
             Scanner scan = new Scanner(System.in);
             estoque.addProduct(new Product("camiseta",25,1,15));
+            estoque.addProduct(new Product("jeans",0,1,15));
             System.out.println("Digite o nome do produto que deseja consultar: ");
             String nome = scan.next();
             int indiceDoProduto = estoque.findProduct(nome);

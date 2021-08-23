@@ -14,26 +14,17 @@ public class RegisterProducts {
         return this.listaDeProdutos;
     }
 
-    public void addProduct(Product elemento){
-        try{
-
-            if(checkEstoqueAvailable() && !productNameAlreadyExists(elemento)){
+    public void addProduct(Product elemento) throws Exception{
+            if(!productNameAlreadyExists(elemento)){
                 this.listaDeProdutos[this.qtdProdutos] = elemento;
                 this.qtdProdutos++;
             }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
     }
-    public void updateProduct(int index, float price, int unit, int qtd){
-        try{
-            this.listaDeProdutos[index].setPriceUnit(price);
-            this.listaDeProdutos[index].setUnit(unit);
-            this.listaDeProdutos[index].setQtdInventory(qtd);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+    public void updateProduct(int index, float price, int unit, int qtd) throws Exception{
+        this.listaDeProdutos[index].setPriceUnit(price);
+        this.listaDeProdutos[index].setUnit(unit);
+        this.listaDeProdutos[index].setQtdInventory(qtd);
     }
 
     public void removeProduct(String nome){
@@ -59,9 +50,8 @@ public class RegisterProducts {
         return productExists;
     }
 
-    private boolean checkEstoqueAvailable() throws Exception {
+    private boolean checkStockAvailable() throws Exception {
         var isValid = true;
-
         if(this.qtdProdutos > this.listaDeProdutos.length) {
             isValid = false;
             throw new Exception("Não foi possivel cadastrar o produto, pois não há mais espaço em estoque");

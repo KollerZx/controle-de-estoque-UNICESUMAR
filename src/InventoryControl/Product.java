@@ -1,9 +1,9 @@
 package InventoryControl;
 
 public class Product {
-    protected String name;
-    protected float priceUnit;
-    protected int unit;
+    private String name;
+    private float priceUnit;
+    private int unit;
     private int qtdInventory;
 
     public Product(String name, float priceUnit, int unit, int qtdInventory) throws Exception{
@@ -18,7 +18,6 @@ public class Product {
     }
 
     public void setPriceUnit(float precoUnitario) throws Exception{
-
         if(precoUnitario > 0){
             this.priceUnit = precoUnitario;
         }
@@ -34,7 +33,6 @@ public class Product {
         else {
             throw new Exception("Não é possivel Criar/Editar um produto com unidade igual a Zero");
         }
-
     }
 
     public void setQtdInventory(int qtdEstoque) throws Exception {
@@ -44,7 +42,6 @@ public class Product {
         else{
             throw new Exception("Não é possivel criar um produto com estoque igual a Zero");
         }
-
     }
 
     public String getName() {

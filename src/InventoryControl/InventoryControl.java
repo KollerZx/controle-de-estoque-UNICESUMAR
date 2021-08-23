@@ -26,6 +26,7 @@ public class InventoryControl {
                 case 1:
                     RegisterProducts.menuRegister();
                     int opt = scan.nextInt();
+                    // INCLUSÃO DE PRODUTO
                     if(opt == 1){
                         System.out.println("Digite o nome do Produto:");
                         String nome = scan.next();

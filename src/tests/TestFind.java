@@ -5,11 +5,12 @@ import InventoryControl.RegisterProducts;
 
 import java.util.Scanner;
 
-public class TesteFind {
+public class TestFind {
     public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
         RegisterProducts estoque = new RegisterProducts(5);
-        estoque.addProduct(new Product("camiseta",1,1,15));
+        estoque.addProduct(new Product("Jeans",65,1,15));
+        estoque.addProduct(new Product("camiseta",70,1,80));
         System.out.println("Digite o nome do produto que deseja consultar: ");
         String nome = scan.next();
         int indiceDoProduto = estoque.findProductByName(nome);

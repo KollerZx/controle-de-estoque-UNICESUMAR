@@ -1,21 +1,21 @@
-package controleDeEstoque;
+package InventoryControl;
 
 
-public class CadastroDeProdutos {
-    private Produto[] listaDeProdutos;
+public class RegisterProducts {
+    private Product[] listaDeProdutos;
     private int qtdProdutos;
 
-    public CadastroDeProdutos(int capacidade){
-        this.listaDeProdutos = new Produto[capacidade];
+    public RegisterProducts(int capacidade){
+        this.listaDeProdutos = new Product[capacidade];
         this.qtdProdutos = 0;
     }
 
-    public Produto[] getListaDeProdutos(){
+    public Product[] getListProduct(){
         return this.listaDeProdutos;
     }
 
-    public void addProduto(Produto elemento) throws Exception {
-        if(this.findProduct(elemento.getNome()) > -1){
+    public void addProduct(Product elemento) throws Exception {
+        if(this.findProduct(elemento.getName()) > -1){
             throw new Exception("Já existe um produto cadastrado com o mesmo nome");
         }
         if(this.qtdProdutos < this.listaDeProdutos.length) {
@@ -30,7 +30,7 @@ public class CadastroDeProdutos {
     public int findProduct(String name){
         if(this.qtdProdutos == 0){ return -1; }
         for(int i=0; i < this.qtdProdutos; i++ ){
-            if(this.listaDeProdutos[i].getNome().equalsIgnoreCase(name)){
+            if(this.listaDeProdutos[i].getName().equalsIgnoreCase(name)){
                 return i;
             }
         }

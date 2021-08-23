@@ -36,9 +36,16 @@ public class InventoryControl {
                         System.out.println("Informe a quantidade de produtos a somar no estoque:");
                         int qtd = scan.nextInt();
                         scan.nextLine();
-                        estoque.addProduct(new Product(nome,preco,unidade,qtd));
+                        System.out.println("Deseja confirmar a Operação? ");
+                        String option = scan.next();
+                        if(confirmOperation(option)){
+                            estoque.addProduct(new Product(nome,preco,unidade,qtd));
+                        }
+                        else{
+                            System.out.println("Operação ignorada!");
+                            continue;
+                        }
 
-                        break;
                     }
                     else if(opt == 3){
 
@@ -74,5 +81,12 @@ public class InventoryControl {
         System.out.println("4 - RELATÓRIOS");
         System.out.println("0 - FINALIZAR \n");
         System.out.print("OPÇÃO: ");
+    }
+
+    static boolean confirmOperation(String option){
+        if(option.equalsIgnoreCase("sim" ) || option.equalsIgnoreCase("s")){
+            return true;
+        }
+        return false;
     }
 }

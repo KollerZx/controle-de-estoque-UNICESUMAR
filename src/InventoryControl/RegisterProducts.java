@@ -15,14 +15,13 @@ public class RegisterProducts {
     }
 
     public void addProduct(Product elemento) throws Exception {
-        if(this.findProduct(elemento.getName()) > -1){
-            throw new Exception("Já existe um produto cadastrado com o mesmo nome");
-        }
-        if(this.qtdProdutos < this.listaDeProdutos.length) {
-            this.listaDeProdutos[this.qtdProdutos] = elemento;
-            this.qtdProdutos++;
-        }else{
-            throw new Exception("Não foi possivel adicionar o Produto, não há espaço no estoque");
+        try{
+            if(validDataProducts(elemento)){
+                this.listaDeProdutos[this.qtdProdutos] = elemento;
+                this.qtdProdutos++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -36,6 +35,22 @@ public class RegisterProducts {
         }
         return -1;
     }
+    public boolean validDataProducts(Product elemento) throws Exception {
+        var isValid = false;
+        if(this.findProduct(elemento.getName()) > -1){
+            isValid = true;
+            throw new Exception("Já existe um produto cadastrado com o mesmo nome");
+        }
+        if(this.qtdProdutos < this.listaDeProdutos.length) {
+            isValid = true;
+            throw new Exception("Não foi possivel cadastrar o produto, pois não há mais espaço em estoque");
+        }
+        //inserir validação para verificar se valor, unidade e qtd são maior que zero
+
+        return isValid;
+
+    }
+
     public static void menuRegister(){
         System.out.println("CADASTRO DE PRODUTOS:");
         System.out.println("1.1 - INCLUSÃO");
@@ -47,6 +62,7 @@ public class RegisterProducts {
         System.out.println("OPÇÃO: ");
 
     }
+
 
 
 

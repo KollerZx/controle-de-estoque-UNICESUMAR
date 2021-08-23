@@ -14,9 +14,10 @@ public class RegisterProducts {
         return this.listaDeProdutos;
     }
 
-    public void addProduct(Product elemento) throws Exception {
+    public void addProduct(Product elemento){
         try{
-            if(validDataProducts(elemento)){
+
+            if(checkEstoqueAvailable() && !productNameAlreadyExists(elemento)){
                 this.listaDeProdutos[this.qtdProdutos] = elemento;
                 this.qtdProdutos++;
             }
@@ -25,8 +26,21 @@ public class RegisterProducts {
         }
 
     }
+    public void updateProduct(int index, float price, int unit, int qtd){
+        try{
+            this.listaDeProdutos[index].setPriceUnit(price);
+            this.listaDeProdutos[index].setUnit(unit);
+            this.listaDeProdutos[index].setQtdInventory(qtd);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
-    public int findProduct(String name){
+    public void removeProduct(String nome){
+
+    }
+
+    public int findProductByName(String name){
         if(this.qtdProdutos == 0){ return -1; }
         for(int i=0; i < this.qtdProdutos; i++ ){
             if(this.listaDeProdutos[i].getName().equalsIgnoreCase(name)){
@@ -35,21 +49,23 @@ public class RegisterProducts {
         }
         return -1;
     }
-    public boolean validDataProducts(Product elemento) throws Exception {
-        var isValid = true;
-        if(this.findProduct(elemento.getName()) > -1){
-            isValid = false;
+
+    private boolean productNameAlreadyExists(Product elemento) throws Exception{
+        var productExists = false;
+        if(this.findProductByName(elemento.getName()) > -1){
+            productExists = true;
             throw new Exception("Já existe um produto cadastrado com o mesmo nome");
         }
+        return productExists;
+    }
+
+    private boolean checkEstoqueAvailable() throws Exception {
+        var isValid = true;
+
         if(this.qtdProdutos > this.listaDeProdutos.length) {
             isValid = false;
             throw new Exception("Não foi possivel cadastrar o produto, pois não há mais espaço em estoque");
         }
-        if((elemento.getPriceUnit() <= 0) || (elemento.getUnit() <= 0 ) || (elemento.getQtdInventory() <= 0) ){
-            isValid = false;
-            throw new Exception("O Produto não pode ter valor, unidade, ou quantidade igual a zero");
-        }
-
         return isValid;
 
     }

@@ -6,8 +6,7 @@ public class Product {
     protected int unit;
     private int qtdInventory;
 
-    public Product(String name, float priceUnit, int unit, int qtdInventory){
-
+    public Product(String name, float priceUnit, int unit, int qtdInventory) throws Exception{
         setName(name);
         setPriceUnit(priceUnit);
         setUnit(unit);
@@ -18,16 +17,34 @@ public class Product {
         this.name = nome;
     }
 
-    public void setPriceUnit(float precoUnitario) {
-        this.priceUnit = precoUnitario;
+    public void setPriceUnit(float precoUnitario) throws Exception{
+
+        if(precoUnitario > 0){
+            this.priceUnit = precoUnitario;
+        }
+        else {
+            throw new Exception("O Preço do produto deve ser maior que Zero");
+        }
     }
 
-    public void setUnit(int unidade) {
-        this.unit = unidade;
+    public void setUnit(int unidade) throws Exception{
+        if(unidade > 0){
+            this.unit = unidade;
+        }
+        else {
+            throw new Exception("Não é possivel Criar/Editar um produto com unidade igual a Zero");
+        }
+
     }
 
-    public void setQtdInventory(int qtdEstoque) {
-        this.qtdInventory = qtdEstoque;
+    public void setQtdInventory(int qtdEstoque) throws Exception {
+        if(qtdEstoque > 0){
+            this.qtdInventory = qtdEstoque;
+        }
+        else{
+            throw new Exception("Não é possivel criar um produto com estoque igual a Zero");
+        }
+
     }
 
     public String getName() {

@@ -47,11 +47,36 @@ public class InventoryControl {
                         }
 
                     }
+//                  ALTERAÇÃO DE PRODUTO
+                    else if(opt == 2){
+                        System.out.println("ALTERAÇÃO");
+                        System.out.println("Informe o nome do produto a ser alterado: ");
+                        String nome = scan.next();
+                        var productUpdate = estoque.findProductByName(nome);
+                        if(productUpdate > -1) {
+                            var listaDeProdutos = estoque.getListProduct();
+                            listaDeProdutos[productUpdate].getProduct();
+
+                            System.out.println("Informe os dados de atualização abaixo:");
+                            System.out.println("novo preço Unitário:");
+                            float preco = scan.nextFloat();
+                            System.out.println("nova unidade do produto:");
+                            int unidade = scan.nextInt();
+                            System.out.println("Quantidade de produtos a somar no estoque:");
+                            int qtd = scan.nextInt();
+                            scan.nextLine();
+
+                            estoque.updateProduct(productUpdate, preco, unidade,qtd);
+
+                        }
+                    }
+
+//                  CONSULTA PRODUTO POR NOME
                     else if(opt == 3){
 
                         System.out.println("Digite o nome do produto que deseja consultar: ");
                         String nome = scan.next();
-                        int indiceDoProduto = estoque.findProduct(nome);
+                        int indiceDoProduto = estoque.findProductByName(nome);
 
                         if(indiceDoProduto > -1){
                             Product[] listaDeProdutos = estoque.getListProduct();
@@ -62,10 +87,15 @@ public class InventoryControl {
                         }
                         break;
                     }
+//                  EXCLUSÃO DE PRODUTO
+                    else if(opt == 4){
+
+                    }
                     else if(opt == 0){
                         continue;
                     }
                     // -----------------------------------------------------//
+
                 default:
                     System.out.println("Escolha uma opção válida");
                     break;

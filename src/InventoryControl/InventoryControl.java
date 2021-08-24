@@ -82,7 +82,7 @@ public class InventoryControl {
 
 //                  REAJUSTE DE PREÇOS
                     case 3:
-                        updatePrice(estoque);
+                        percentPriceAdjust(estoque);
                         break;
 
                     default:
@@ -299,7 +299,7 @@ public class InventoryControl {
         }
     }
 
-    private static void updatePrice(RegisterProducts estoque) throws Exception {
+    private static void percentPriceAdjust(RegisterProducts estoque) throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Informe o nome do produto que deseja atualizar o preço: ");
         String nome = scan.next();
@@ -307,12 +307,12 @@ public class InventoryControl {
         if(indiceProduct > -1){
             System.out.println("Dados do produto: ");
             estoque.getListProduct()[indiceProduct].getProduct();
-            System.out.println("Informe o novo preço");
-            float newPrice = scan.nextFloat();
+            System.out.println("Informe o percentual(%) de ajuste: ");
+            float percent = scan.nextFloat();
             System.out.println("Deseja confirmar a alteração?");
             String opcao = scan.next();
             if(confirmOperation(opcao)){
-                estoque.getListProduct()[indiceProduct].setPriceUnit(newPrice);
+                estoque.percentPriceAdjust(indiceProduct,percent);
                 System.out.println("Dados do produto apos a atualização");
                 estoque.getListProduct()[indiceProduct].getProduct();
             }

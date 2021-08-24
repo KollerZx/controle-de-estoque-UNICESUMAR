@@ -30,6 +30,13 @@ public class RegisterProducts {
 
     }
 
+    public void percentPriceAdjust(int index, float percent) throws Exception {
+        float productPrice = this.listaDeProdutos[index].getPriceUnit();
+        float percentAdd = productPrice * (percent/100);
+        float priceUpdated = productPrice + percentAdd;
+        this.listaDeProdutos[index].setPriceUnit(priceUpdated);
+    }
+
     public void removeProduct(String nome){
 
     }

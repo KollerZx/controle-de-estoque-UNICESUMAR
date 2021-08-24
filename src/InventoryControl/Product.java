@@ -62,7 +62,7 @@ public class Product {
 
     public void getProduct(){
         System.out.println("Nome: " + getName());
-        System.out.println("Preço: " + getPriceUnit());
+        System.out.println("Preço: R$ " + getPriceUnit());
         System.out.println("Unidade: " + getUnit());
         System.out.println("Quantidade: " + getQtdInventory());
         System.out.println();

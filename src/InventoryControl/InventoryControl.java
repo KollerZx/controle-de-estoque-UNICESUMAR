@@ -144,8 +144,8 @@ public class InventoryControl {
             System.out.println("ALTERAÇÃO");
             Scanner scan = new Scanner(System.in);
             System.out.println(" ATENÇÃO: Essa opção só deve ser utilizada para correção do produto cadastrado");
-            System.out.println("Para entrada e saída do estoque, utilizar a funcionalidade MOVIMENTAÇÃO");
-            System.out.println("Deseja continuar e alterar a quantidade em estoque?");
+            System.out.println(" Para entrada e saída do estoque, utilizar a funcionalidade MOVIMENTAÇÃO");
+            System.out.println(" Deseja continuar e alterar a quantidade em estoque?");
             String opcao = scan.next();
 
             if(confirmOperation(opcao)){
@@ -155,13 +155,11 @@ public class InventoryControl {
                 if(productUpdate > -1) {
                     var listaDeProdutos = estoque.getListProduct();
                     listaDeProdutos[productUpdate].getProduct();
-
                     System.out.println("Informe os dados de atualização abaixo:");
                     System.out.println("novo preço Unitário:");
                     float preco = scan.nextFloat();
                     System.out.println("nova unidade do produto:");
                     int unidade = scan.nextInt();
-
                     System.out.println("Informe a quantidade em estoque: ");
                     int qtd = scan.nextInt();
                     scan.nextLine();
@@ -175,9 +173,11 @@ public class InventoryControl {
                         continue;
                     }
                 }
+
                 else{
                     System.out.println("O produto não existe no estoque");
                 }
+
                 System.out.println("Deseja repetir a operação?");
                 opcao = scan.next();
                 if(confirmOperation(opcao)){
@@ -186,7 +186,6 @@ public class InventoryControl {
                 else{
                     changeAgain = false;
                     System.out.println("Retornando ao menu anterior");
-                    continue;
                 }
             }
 

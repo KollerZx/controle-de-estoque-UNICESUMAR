@@ -35,12 +35,18 @@ public class RegisterProducts {
     }
 
     public void inputStock(int indice, int qtdProduct) throws Exception {
+        if(qtdProduct == 0){
+            throw new Exception("Deve-se informar um valor maior que zero para Entrada");
+        }
         var stockActually = this.listaDeProdutos[indice].getQtdInventory();
         var updateStock = stockActually + qtdProduct;
         this.listaDeProdutos[indice].setQtdInventory(updateStock);
     }
 
     public void outputStock(int indice, int qtdProduct) throws Exception {
+        if(qtdProduct == 0){
+            throw new Exception("Deve-se informar um valor maior que zero para Saída");
+        }
         var stockActually = this.listaDeProdutos[indice].getQtdInventory();
         var updateStock = stockActually - qtdProduct;
         this.listaDeProdutos[indice].setQtdInventory(updateStock);

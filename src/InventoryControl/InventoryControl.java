@@ -20,8 +20,13 @@ public class InventoryControl {
             scan.nextLine();
             switch (opcao){
                 case 0:
-                    continue;
-
+                    System.out.println("Deseja realmente sair do programa? :");
+                    String option =scan.next();
+                    if(confirmOperation(option)){
+                        continue;
+                    }
+                    opcao = 9;
+                    break;
                     // CADASTRO DE PRODUTOS
                 case 1:
                     RegisterProducts.menuRegister();
@@ -38,7 +43,7 @@ public class InventoryControl {
                         int qtd = scan.nextInt();
                         scan.nextLine();
                         System.out.println("Deseja confirmar a Operação? ");
-                        String option = scan.next();
+                        option = scan.next();
                         if(confirmOperation(option)){
                             estoque.addProduct(new Product(nome,preco,unidade,qtd));
                         }
@@ -126,7 +131,7 @@ public class InventoryControl {
                             int qtdInventory = scan.nextInt();
 
                             System.out.println("Deseja confirmar a Operação? ");
-                            String option = scan.next();
+                            option = scan.next();
                             if(confirmOperation(option)) {
                                 estoque.inputStock(indiceProduct,qtdInventory);
                                 var qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
@@ -150,7 +155,7 @@ public class InventoryControl {
                             int qtdInventory = scan.nextInt();
 
                             System.out.println("Deseja confirmar a Operação? ");
-                            String option = scan.next();
+                            option = scan.next();
                             if(confirmOperation(option)) {
                                 estoque.outputStock(indiceProduct, qtdInventory);
 

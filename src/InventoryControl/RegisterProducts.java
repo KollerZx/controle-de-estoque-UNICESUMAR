@@ -21,6 +21,7 @@ public class RegisterProducts {
             }
 
     }
+
     public void updateProduct(int index, float price, int unit, int qtd) throws Exception{
         this.listaDeProdutos[index].setPriceUnit(price);
         this.listaDeProdutos[index].setUnit(unit);
@@ -30,16 +31,19 @@ public class RegisterProducts {
     public void removeProduct(String nome){
 
     }
+
     public void inputStock(int indice, int qtdProduct) throws Exception {
         var stockActually = this.listaDeProdutos[indice].getQtdInventory();
         var updateStock = stockActually + qtdProduct;
         this.listaDeProdutos[indice].setQtdInventory(updateStock);
     }
+
     public void outputStock(int indice, int qtdProduct) throws Exception {
         var stockActually = this.listaDeProdutos[indice].getQtdInventory();
         var updateStock = stockActually - qtdProduct;
         this.listaDeProdutos[indice].setQtdInventory(updateStock);
     }
+
     public int findProductByName(String name){
         if(this.qtdProdutos == 0){ return -1; }
         for(int i=0; i < this.qtdProdutos; i++ ){
@@ -68,29 +72,5 @@ public class RegisterProducts {
         return isValid;
 
     }
-
-    public static void menuRegister(){
-        System.out.println("CADASTRO DE PRODUTOS:");
-        System.out.println("1.1 - INCLUSÃO");
-        System.out.println("1.2 - ALTERAÇÃO");
-        System.out.println("1.3 - CONSULTA");
-        System.out.println("1.4 - EXCLUSÃO");
-        System.out.println("0 - RETORNAR");
-
-        System.out.println("OPÇÃO: ");
-
-    }
-
-    public static void menuInventoryMovement(){
-        System.out.println("MOVIMENTAÇÃO:");
-        System.out.println("1 - ENTRADA");
-        System.out.println("2 - SAÍDA");
-        System.out.println("0 - RETORNAR");
-        System.out.println("OPÇÃO: ");
-    }
-
-
-
-
 
 }

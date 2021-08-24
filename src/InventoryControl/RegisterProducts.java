@@ -26,6 +26,8 @@ public class RegisterProducts {
         this.listaDeProdutos[index].setPriceUnit(price);
         this.listaDeProdutos[index].setUnit(unit);
         this.listaDeProdutos[index].setQtdInventory(qtd);
+
+
     }
 
     public void removeProduct(String nome){

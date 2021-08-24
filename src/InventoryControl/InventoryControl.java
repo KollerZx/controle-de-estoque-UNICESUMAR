@@ -10,83 +10,90 @@ public class InventoryControl {
     static int DEPARTAMENTS = 10;
 
     public static void main(String[] args) throws Exception {
-        int opcao=9;
-        Scanner scan = new Scanner(System.in);
-        /* CRIA UM ESTOQUE, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
-        RegisterProducts estoque = new RegisterProducts(DEPARTAMENTS);
-        while(opcao!=0){
-            menuMain();
-            opcao = scan.nextInt();
-            scan.nextLine();
-            switch (opcao){
-                case 0:
-                    System.out.println("Deseja realmente sair do programa? :");
-                    String option =scan.next();
-                    if(confirmOperation(option)){
-                        continue;
-                    }
-                    break;
-                    // CADASTRO DE PRODUTOS
-                case 1:
-                    menuRegister();
-                    opcao = scan.nextInt();
 
-                    // INCLUSÃO DE PRODUTO
-                    if(opcao == 1){
-                        includeProduct(estoque);
+        try{
+            int opcao=9;
+            Scanner scan = new Scanner(System.in);
+            /* CRIA UM ESTOQUE, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
+            RegisterProducts estoque = new RegisterProducts(DEPARTAMENTS);
+            while(opcao!=0){
+                menuMain();
+                opcao = scan.nextInt();
+                scan.nextLine();
+                switch (opcao){
+                    case 0:
+                        System.out.println("Deseja realmente sair do programa?");
+                        String option =scan.next();
+                        if(confirmOperation(option)){
+                            continue;
+                        }
+                        opcao = 1;
                         break;
-                    }
-//                  ALTERAÇÃO DE PRODUTO
-                    else if(opcao == 2){
-                        changeProduct(estoque);
-                        break;
-                    }
-//                  CONSULTA PRODUTO POR NOME
-                    else if(opcao == 3){
-                        findProduct(estoque);
-                        break;
-                    }
-//                  EXCLUSÃO DE PRODUTO
-                    else if(opcao == 4){
-                        removeProduct(estoque);
-                        break;
-                    }
-//                  RETORNAR AO MENU ANTERIOR
-                    else if(opcao == 0){
-                        continue;
-                    }
-                    // -----------------------------------------------------//
+//                  CADASTRO DE PRODUTOS
+                    case 1:
+                        menuRegister();
+                        opcao = scan.nextInt();
+//                      INCLUSÃO DE PRODUTO
+                        if(opcao == 1){
+                            includeProduct(estoque);
+                            break;
+                        }
+//                      ALTERAÇÃO DE PRODUTO
+                        else if(opcao == 2){
+                            changeProduct(estoque);
+                            break;
+                        }
+//                      CONSULTA PRODUTO POR NOME
+                        else if(opcao == 3){
+                            findProduct(estoque);
+                            break;
+                        }
+//                      EXCLUSÃO DE PRODUTO
+                        else if(opcao == 4){
+                            removeProduct(estoque);
+                            break;
+                        }
+//                      RETORNAR AO MENU ANTERIOR
+                        else if(opcao == 0){
+                            opcao = 1;
+                            continue;
+                        }
+                        // -----------------------------------------------------//
 
-//              MOVIMENTAÇÃO
-                case 2:
-                    menuInventoryMovement();
-                    opcao = scan.nextInt();
-//                  RETORNAR
-                    if(opcao == 0){
-                        opcao = 2;
-                        continue;
-                    }
-//                  ENTRADA
-                    else if(opcao == 1){
-                        inputStock(estoque);
-                        break;
-                    }
-//                  SAÍDA
-                    else if(opcao == 2){
-                        outputStock(estoque);
-                        break;
-                    }
+//                  MOVIMENTAÇÃO
+                    case 2:
+                        menuInventoryMovement();
+                        opcao = scan.nextInt();
+//                      RETORNAR
+                        if(opcao == 0){
+                            opcao = 1;
+                            continue;
+                        }
+//                      ENTRADA
+                        else if(opcao == 1){
+                            inputStock(estoque);
+                            break;
+                        }
+//                      SAÍDA
+                        else if(opcao == 2){
+                            outputStock(estoque);
+                            break;
+                        }
 
-//              REAJUSTE DE PREÇOS
-                case 3:
-                    updatePrice(estoque);
-                    break;
+//                  REAJUSTE DE PREÇOS
+                    case 3:
+                        updatePrice(estoque);
+                        break;
 
-                default:
-                    System.out.println("Escolha uma opção válida");
-                    break;
-            }
-        };
+                    default:
+                        System.out.println("Escolha uma opção válida");
+                        break;
+                }
+            };
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -131,28 +138,60 @@ public class InventoryControl {
     }
 
     private static void changeProduct(RegisterProducts estoque) throws Exception {
-        System.out.println("ALTERAÇÃO");
-        System.out.println("Informe o nome do produto a ser alterado: ");
-        Scanner scan = new Scanner(System.in);
-        String nome = scan.next();
-        var productUpdate = estoque.findProductByName(nome);
-        if(productUpdate > -1) {
-            var listaDeProdutos = estoque.getListProduct();
-            listaDeProdutos[productUpdate].getProduct();
+        boolean changeAgain = false;
 
-            System.out.println("Informe os dados de atualização abaixo:");
-            System.out.println("novo preço Unitário:");
-            float preco = scan.nextFloat();
-            System.out.println("nova unidade do produto:");
-            int unidade = scan.nextInt();
-            System.out.println("Quantidade de produtos a somar no estoque:");
-            int qtd = scan.nextInt();
-            scan.nextLine();
-            estoque.updateProduct(productUpdate, preco, unidade,qtd);
-        }
-        else{
-            System.out.println("O produto não existe no estoque");
-        }
+        do{
+            System.out.println("ALTERAÇÃO");
+            Scanner scan = new Scanner(System.in);
+            System.out.println(" ATENÇÃO: Essa opção só deve ser utilizada para correção do produto cadastrado");
+            System.out.println("Para entrada e saída do estoque, utilizar a funcionalidade MOVIMENTAÇÃO");
+            System.out.println("Deseja continuar e alterar a quantidade em estoque?");
+            String opcao = scan.next();
+
+            if(confirmOperation(opcao)){
+                System.out.println("Informe o nome do produto a ser alterado: ");
+                String nome = scan.next();
+                int productUpdate = estoque.findProductByName(nome);
+                if(productUpdate > -1) {
+                    var listaDeProdutos = estoque.getListProduct();
+                    listaDeProdutos[productUpdate].getProduct();
+
+                    System.out.println("Informe os dados de atualização abaixo:");
+                    System.out.println("novo preço Unitário:");
+                    float preco = scan.nextFloat();
+                    System.out.println("nova unidade do produto:");
+                    int unidade = scan.nextInt();
+
+                    System.out.println("Informe a quantidade em estoque: ");
+                    int qtd = scan.nextInt();
+                    scan.nextLine();
+                    System.out.println("Deseja confirmar a alteração");
+                    opcao = scan.next();
+                    if(confirmOperation(opcao)){
+                        estoque.updateProduct(productUpdate, preco, unidade,qtd);
+                    }
+                    else{
+                        System.out.println("Operação cancelada, retornando ao menu anterior");
+                        continue;
+                    }
+                }
+                else{
+                    System.out.println("O produto não existe no estoque");
+                }
+                System.out.println("Deseja repetir a operação?");
+                opcao = scan.next();
+                if(confirmOperation(opcao)){
+                    changeAgain = true;
+                }
+                else{
+                    changeAgain = false;
+                    System.out.println("Retornando ao menu anterior");
+                    continue;
+                }
+            }
+
+        }while(changeAgain);
+
     }
 
     private static void includeProduct(RegisterProducts estoque) throws Exception{
@@ -176,6 +215,7 @@ public class InventoryControl {
             }
             else{
                 System.out.println("Operação ignorada!");
+                registerAgain = false;
                 continue;
 
             }

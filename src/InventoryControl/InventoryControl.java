@@ -1,5 +1,6 @@
 package InventoryControl;
 
+import javax.naming.Binding;
 import java.util.Scanner;
 
 public class InventoryControl {
@@ -25,9 +26,9 @@ public class InventoryControl {
                     // CADASTRO DE PRODUTOS
                 case 1:
                     RegisterProducts.menuRegister();
-                    int opt = scan.nextInt();
+                    opcao = scan.nextInt();
                     // INCLUSÃO DE PRODUTO
-                    if(opt == 1){
+                    if(opcao == 1){
                         System.out.println("Digite o nome do Produto:");
                         String nome = scan.next();
                         System.out.println("Informe o preço Unitário:");
@@ -46,10 +47,10 @@ public class InventoryControl {
                             System.out.println("Operação ignorada!");
                             continue;
                         }
-
                     }
+
 //                  ALTERAÇÃO DE PRODUTO
-                    else if(opt == 2){
+                    else if(opcao == 2){
                         System.out.println("ALTERAÇÃO");
                         System.out.println("Informe o nome do produto a ser alterado: ");
                         String nome = scan.next();
@@ -66,14 +67,13 @@ public class InventoryControl {
                             System.out.println("Quantidade de produtos a somar no estoque:");
                             int qtd = scan.nextInt();
                             scan.nextLine();
-
                             estoque.updateProduct(productUpdate, preco, unidade,qtd);
 
                         }
                     }
 
 //                  CONSULTA PRODUTO POR NOME
-                    else if(opt == 3){
+                    else if(opcao == 3){
 
                         System.out.println("Digite o nome do produto que deseja consultar: ");
                         String nome = scan.next();
@@ -88,14 +88,79 @@ public class InventoryControl {
                         }
                         break;
                     }
+
 //                  EXCLUSÃO DE PRODUTO
-                    else if(opt == 4){
+                    else if(opcao == 4){
 
                     }
-                    else if(opt == 0){
-                        continue;
+
+//                  RETORNAR AO MENU ANTERIOR
+                    else if(opcao == 0){
+                        RegisterProducts.menuRegister();
                     }
                     // -----------------------------------------------------//
+
+//              MOVIMENTAÇÃO
+                case 2:
+                    RegisterProducts.menuInventoryMovement();
+                    opcao = scan.nextInt();
+
+//                  RETORNAR
+                    if(opcao == 0){
+                        break;
+                    }
+//                  ENTRADA
+                    else if(opcao == 1){
+                        System.out.println(" ------------- ENTRADA DE ESTOQUE --------------");
+                        System.out.println("Informe o nome do produto que deseja: ");
+                        String nome = scan.next();
+                        int indiceProduct = estoque.findProductByName(nome);
+
+                        if(indiceProduct > -1){
+                            var qtdInventoryActually = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                            System.out.println("Quantidade atual em estoque: " + qtdInventoryActually);
+
+                            System.out.println("Informe a quantidade de entrada no estoque: ");
+                            int qtdInventory = scan.nextInt();
+
+                            System.out.println("Deseja confirmar a Operação? ");
+                            String option = scan.next();
+                            if(confirmOperation(option)) {
+                                estoque.inputStock(indiceProduct,qtdInventory);
+                                var qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                                System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                            }
+                        }
+                    }
+
+//                  SAÍDA
+                    else if(opcao == 2){
+                        System.out.println(" ------------- SAÍDA DE ESTOQUE --------------");
+                        System.out.println("Informe o nome do produto que deseja: ");
+                        String nome = scan.next();
+                        int indiceProduct = estoque.findProductByName(nome);
+
+                        if(indiceProduct > -1){
+                            var qtdInventoryActually = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                            System.out.println("Quantidade atual em estoque: " + qtdInventoryActually);
+
+                            System.out.println("Informe a quantidade de saída do estoque: ");
+                            int qtdInventory = scan.nextInt();
+
+                            System.out.println("Deseja confirmar a Operação? ");
+                            String option = scan.next();
+                            if(confirmOperation(option)) {
+                                estoque.outputStock(indiceProduct, qtdInventory);
+
+                                var qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
+
+                                System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                            }
+                        }
+                    }
+
+//              REAJUSTE DE PREÇOS
+                case 3:
 
                 default:
                     System.out.println("Escolha uma opção válida");
@@ -114,7 +179,7 @@ public class InventoryControl {
         System.out.print("OPÇÃO: ");
     }
 
-    static boolean confirmOperation(String option){
+    public static boolean confirmOperation(String option){
         if(option.equalsIgnoreCase("sim" ) || option.equalsIgnoreCase("s")){
             return true;
         }

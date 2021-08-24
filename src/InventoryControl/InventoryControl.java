@@ -1,6 +1,5 @@
 package InventoryControl;
 
-import javax.naming.Binding;
 import java.util.Scanner;
 
 public class InventoryControl {
@@ -96,7 +95,9 @@ public class InventoryControl {
 
 //                  RETORNAR AO MENU ANTERIOR
                     else if(opcao == 0){
-                        RegisterProducts.menuRegister();
+                        opcao = 1;
+                        continue;
+
                     }
                     // -----------------------------------------------------//
 
@@ -107,7 +108,8 @@ public class InventoryControl {
 
 //                  RETORNAR
                     if(opcao == 0){
-                        break;
+                        opcao = 2;
+                        continue;
                     }
 //                  ENTRADA
                     else if(opcao == 1){

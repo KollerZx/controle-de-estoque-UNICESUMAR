@@ -1,6 +1,5 @@
 package InventoryControl;
 
-import java.sql.ClientInfoStatus;
 import java.util.Scanner;
 
 public class Controllers {
@@ -119,7 +118,16 @@ public class Controllers {
     }
 
     public static void removeProduct(RegisterProducts estoque) throws Exception{
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Lista de produtos no estoque");
+        reportProducts(estoque);
+        System.out.println("Informe o nome do produto a ser removido");
+        String nome = scan.next();
+        int index = estoque.findProductByName(nome);
+        estoque.removeProduct(index);
 
+        System.out.println("Lista de produtos no estoque após remoção");
+        reportProducts(estoque);
     }
 
     public static void inputStock(RegisterProducts estoque) throws Exception{
@@ -198,7 +206,7 @@ public class Controllers {
     public static void reportProducts(RegisterProducts estoque) throws Exception {
         Product[] productList = estoque.getListProduct();
 
-        for (int index = 0; index < productList.length; index++) {
+        for (int index = 0; index < (productList.length-1); index++) {
             System.out.println("Produto - " + (index+1));
             productList[index].getProduct();
         }

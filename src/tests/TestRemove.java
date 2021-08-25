@@ -16,7 +16,7 @@ public class TestRemove {
             estoque.addProduct(new Product("blusa",145,1,8));
             Controllers.removeProduct(estoque);
 
-            estoque.getListProduct()[estoque.getListProduct().length].getProduct();
+            //estoque.getListProduct()[estoque.getListProduct().length].getProduct();
         }catch (Exception e){
             e.printStackTrace();
         }

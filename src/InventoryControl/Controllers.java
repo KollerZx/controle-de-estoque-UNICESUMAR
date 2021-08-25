@@ -206,7 +206,10 @@ public class Controllers {
     public static void reportProducts(RegisterProducts estoque) throws Exception {
         Product[] productList = estoque.getListProduct();
 
-        for (int index = 0; index < (productList.length-1); index++) {
+        for (int index = 0; index < (productList.length); index++) {
+            if(productList[index] == null){
+                continue;
+            }
             System.out.println("Produto - " + (index+1));
             productList[index].getProduct();
         }

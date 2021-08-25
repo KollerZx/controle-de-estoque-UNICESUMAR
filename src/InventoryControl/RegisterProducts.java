@@ -41,9 +41,10 @@ public class RegisterProducts {
         if(!(index >= 0 && index < this.qtdProdutos )){
             throw new IllegalArgumentException("O indice informado não existe no vetor");
         }
-        for(int position = index; position < (this.qtdProdutos-1); position++){
+        for(int position = index; position < (this.listaDeProdutos.length -1); position++){
             this.listaDeProdutos[position] = this.listaDeProdutos[position+1];
         }
+        this.listaDeProdutos[this.listaDeProdutos.length - 1] = null;
         this.qtdProdutos--;
     }
 

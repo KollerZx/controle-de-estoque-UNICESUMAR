@@ -1,5 +1,6 @@
 package InventoryControl;
 
+import java.sql.ClientInfoStatus;
 import java.util.Scanner;
 
 public class Controllers {
@@ -191,6 +192,15 @@ public class Controllers {
         }
         else{
             System.out.println("Não foi encontrado nenhum produto com esse nome");
+        }
+    }
+
+    public static void reportProducts(RegisterProducts estoque) throws Exception {
+        Product[] productList = estoque.getListProduct();
+
+        for (int index = 0; index < productList.length; index++) {
+            System.out.println("Produto - " + (index+1));
+            productList[index].getProduct();
         }
     }
 }

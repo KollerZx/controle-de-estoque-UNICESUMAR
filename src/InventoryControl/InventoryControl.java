@@ -84,7 +84,10 @@ public class InventoryControl {
                     case 3:
                         Controllers.percentPriceAdjust(estoque);
                         break;
-
+//                  RELATÓRIOS
+                    case 4:
+                        Controllers.reportProducts(estoque);
+                        break;
                     default:
                         System.out.println("Escolha uma opção válida");
                         break;

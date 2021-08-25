@@ -39,7 +39,7 @@ public class RegisterProducts {
 
     public void removeProduct(int index) throws Exception{
         if(!(index >= 0 && index < this.qtdProdutos )){
-            throw new IllegalArgumentException("O indice informado não existe no vetor");
+            throw new IllegalArgumentException("O produto informado não existe no estoque");
         }
         for(int position = index; position < (this.listaDeProdutos.length -1); position++){
             this.listaDeProdutos[position] = this.listaDeProdutos[position+1];
@@ -83,16 +83,6 @@ public class RegisterProducts {
             throw new Exception("Já existe um produto cadastrado com o mesmo nome");
         }
         return productExists;
-    }
-
-    private boolean checkStockAvailable() throws Exception {
-        var isValid = true;
-        if(this.qtdProdutos > this.listaDeProdutos.length) {
-            isValid = false;
-            throw new Exception("Não foi possivel cadastrar o produto, pois não há mais espaço em estoque");
-        }
-        return isValid;
-
     }
 
 }

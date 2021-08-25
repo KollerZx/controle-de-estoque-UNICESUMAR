@@ -10,6 +10,21 @@ public class Controllers {
         return false;
     }
 
+    public static boolean repeatOperation(){
+        boolean again;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Deseja repetir a operação?");
+        String option = scan.next();
+        if(confirmOperation(option)){
+            again = true;
+        }
+        else{
+            again = false;
+            System.out.println("Retornando ao menu anterior");
+        }
+        return again;
+    }
+
     public static void changeProduct(RegisterProducts estoque) throws Exception {
         boolean changeAgain = false;
 
@@ -48,25 +63,17 @@ public class Controllers {
                 }
 
                 else{
-                    System.out.println("O produto não existe no estoque");
+                    System.out.println("\n O produto informado não existe! \n");
                 }
 
-                System.out.println("Deseja repetir a operação?");
-                opcao = scan.next();
-                if(confirmOperation(opcao)){
-                    changeAgain = true;
-                }
-                else{
-                    changeAgain = false;
-                    System.out.println("Retornando ao menu anterior");
-                }
+                changeAgain = repeatOperation();
             }
         }while(changeAgain);
 
     }
 
     public static void includeProduct(RegisterProducts estoque) throws Exception{
-        boolean registerAgain = false;
+        boolean registerAgain;
         Scanner scan = new Scanner(System.in);
         do{
             System.out.println("Digite o nome do Produto:");
@@ -90,123 +97,158 @@ public class Controllers {
                 continue;
 
             }
-            System.out.println("Deseja repetir a Operação?");
-            option = scan.next();
-            if(confirmOperation(option)){
-                registerAgain = true;
-            }else{
-                System.out.println("Retornando ao menu anterior");
-                registerAgain = false;
-            }
+
+            registerAgain = repeatOperation();
+
         }
         while(registerAgain);
     }
 
     public static void findProduct(RegisterProducts estoque) throws Exception{
+        boolean findAgain;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite o nome do produto que deseja consultar: ");
-        String nome = scan.next();
-        int indiceDoProduto = estoque.findProductByName(nome);
 
-        if(indiceDoProduto > -1){
-            Product[] listaDeProdutos = estoque.getListProduct();
-            listaDeProdutos[indiceDoProduto].getProduct();
-        }
-        else{
-            System.out.println("Não existe produto com esse nome");
-        }
+        do {
+            System.out.println("Digite o nome do produto que deseja consultar: ");
+            String nome = scan.next();
+            int indiceDoProduto = estoque.findProductByName(nome);
+
+            if (indiceDoProduto > -1) {
+                Product[] listaDeProdutos = estoque.getListProduct();
+                listaDeProdutos[indiceDoProduto].getProduct();
+            } else {
+                System.out.println("Não existe produto com esse nome");
+            }
+
+            findAgain = repeatOperation();
+        }while(findAgain);
     }
 
     public static void removeProduct(RegisterProducts estoque) throws Exception{
+        boolean removeAgain;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Lista de produtos no estoque");
-        reportProducts(estoque);
-        System.out.println("Informe o nome do produto a ser removido");
-        String nome = scan.next();
-        int index = estoque.findProductByName(nome);
-        estoque.removeProduct(index);
+        try{
+            do {
+                System.out.println("Lista de produtos no estoque");
+                reportProducts(estoque);
+                System.out.println("Informe o nome do produto a ser removido");
+                String nome = scan.next();
+                int index = estoque.findProductByName(nome);
+                estoque.removeProduct(index);
 
-        System.out.println("Lista de produtos no estoque após remoção");
-        reportProducts(estoque);
+                System.out.println("Lista de produtos no estoque após remoção");
+                reportProducts(estoque);
+
+                removeAgain = repeatOperation();
+            }while(removeAgain);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public static void inputStock(RegisterProducts estoque) throws Exception{
         System.out.println(" ------------- ENTRADA DE ESTOQUE --------------");
         Scanner scan = new Scanner(System.in);
-        System.out.println("Informe o nome do produto que deseja: ");
-        String nome = scan.next();
-        int indiceProduct = estoque.findProductByName(nome);
+        boolean repeat;
 
-        if(indiceProduct > -1){
-            int qtdInventoryActually = estoque.getListProduct()[indiceProduct].getQtdInventory();
-            System.out.println("Quantidade atual em estoque: " + qtdInventoryActually);
+        do {
+            System.out.println("Informe o nome do produto que deseja: ");
+            String nome = scan.next();
+            int indiceProduct = estoque.findProductByName(nome);
 
-            System.out.println("Informe a quantidade de entrada no estoque: ");
-            int qtdInventory = scan.nextInt();
+            if (indiceProduct > -1) {
+                estoque.getListProduct()[indiceProduct].getProduct();
 
-            System.out.println("Deseja confirmar a Operação? ");
-            String option = scan.next();
-            if(confirmOperation(option)) {
-                estoque.inputStock(indiceProduct,qtdInventory);
-                int qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
-                System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                System.out.println("Informe a quantidade de entrada no estoque: ");
+                int qtdInventory = scan.nextInt();
+
+                System.out.println("Deseja confirmar a Operação? ");
+                String option = scan.next();
+                if (confirmOperation(option)) {
+                    estoque.inputStock(indiceProduct, qtdInventory);
+                    int qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                    System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                }
+            }else{
+                System.out.println("\n O Produto informado não existe! \n");
             }
-        }
+            repeat = repeatOperation();
+        }while(repeat);
     }
 
     public static void outputStock(RegisterProducts estoque) throws Exception{
-        System.out.println(" ------------- SAÍDA DE ESTOQUE --------------");
+        System.out.println(" ------------- SAÍDA DE ESTOQUE --------------\n");
+        boolean repeat;
         Scanner scan = new Scanner(System.in);
-        System.out.println("Informe o nome do produto que deseja: ");
-        String nome = scan.next();
-        int indiceProduct = estoque.findProductByName(nome);
+        do{
+            System.out.println("Informe o nome do produto que deseja: ");
+            String nome = scan.next();
+            int indiceProduct = estoque.findProductByName(nome);
 
-        if(indiceProduct > -1){
-            int qtdInventoryActually = estoque.getListProduct()[indiceProduct].getQtdInventory();
-            System.out.println("Quantidade atual em estoque: " + qtdInventoryActually);
+            if(indiceProduct > -1){
+                int qtdInventoryActually = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                System.out.println("Quantidade atual em estoque: " + qtdInventoryActually);
 
-            System.out.println("Informe a quantidade de saída do estoque: ");
-            int qtdInventory = scan.nextInt();
+                System.out.println("Informe a quantidade de saída do estoque: ");
+                int qtdInventory = scan.nextInt();
 
-            System.out.println("Deseja confirmar a Operação? ");
-            String option = scan.next();
-            if(confirmOperation(option)) {
-                estoque.outputStock(indiceProduct, qtdInventory);
+                System.out.println("Deseja confirmar a Operação? ");
+                String option = scan.next();
+                if(confirmOperation(option)) {
+                    estoque.outputStock(indiceProduct, qtdInventory);
 
-                int qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
+                    int qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();
 
-                System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                    System.out.println("Quantidade estoque atualizada: " + qtdInventoryUpdated);
+                }
+            }else{
+                System.out.println("\n O Produto informado não existe! \n");
             }
-        }
+            repeat = repeatOperation();
+        }while(repeat);
+
     }
 
     public static void percentPriceAdjust(RegisterProducts estoque) throws Exception {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Informe o nome do produto que deseja atualizar o preço: ");
-        String nome = scan.next();
-        int indiceProduct = estoque.findProductByName(nome);
-        if(indiceProduct > -1){
-            System.out.println("Dados do produto: ");
-            estoque.getListProduct()[indiceProduct].getProduct();
-            System.out.println("Informe o percentual(%) de ajuste: ");
-            float percent = scan.nextFloat();
-            System.out.println("Deseja confirmar a alteração?");
-            String opcao = scan.next();
-            if(confirmOperation(opcao)){
-                estoque.percentPriceAdjust(indiceProduct,percent);
-                System.out.println("Dados do produto apos a atualização");
+        boolean repeat;
+
+        do{
+            System.out.println("Informe o nome do produto que deseja atualizar o preço: ");
+            String nome = scan.next();
+            int indiceProduct = estoque.findProductByName(nome);
+            if(indiceProduct > -1){
+                System.out.println("Dados do produto: ");
                 estoque.getListProduct()[indiceProduct].getProduct();
+                System.out.println("Informe o percentual(%) de ajuste: ");
+                float percent = scan.nextFloat();
+                System.out.println("Deseja confirmar a alteração?");
+                String opcao = scan.next();
+                if(confirmOperation(opcao)){
+                    estoque.percentPriceAdjust(indiceProduct,percent);
+                    System.out.println("Dados do produto apos a atualização");
+                    estoque.getListProduct()[indiceProduct].getProduct();
+                }
             }
-        }
-        else{
-            System.out.println("Não foi encontrado nenhum produto com esse nome");
-        }
+            else{
+                System.out.println("Não foi encontrado nenhum produto com esse nome");
+            }
+
+            repeat = repeatOperation();
+        }while(repeat);
+
     }
 
     public static void reportProducts(RegisterProducts estoque) throws Exception {
+        System.out.println("\n Lista de Produtos disponíveis: \n");
         Product[] productList = estoque.getListProduct();
 
         for (int index = 0; index < (productList.length); index++) {
+            if(productList[0] == null){
+                System.out.println("\n NÃO HÁ PRODUTOS NO ESTOQUE \n");
+                break;
+            }
             if(productList[index] == null){
                 continue;
             }

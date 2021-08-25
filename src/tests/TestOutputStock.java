@@ -1,11 +1,11 @@
 package tests;
 
+import InventoryControl.Controllers;
 import InventoryControl.Product;
 import InventoryControl.RegisterProducts;
 
 import java.util.Scanner;
 
-import static InventoryControl.InventoryControl.confirmOperation;
 
 public class TestOutputStock {
     public static void main(String[] args) throws Exception {
@@ -29,7 +29,7 @@ public class TestOutputStock {
 
                 System.out.println("Deseja confirmar a Operação? ");
                 String option = scan.next();
-                if(confirmOperation(option)) {
+                if(Controllers.confirmOperation(option)) {
                     estoque.outputStock(indiceProduct, qtdInventory);
 
                     var qtdInventoryUpdated = estoque.getListProduct()[indiceProduct].getQtdInventory();

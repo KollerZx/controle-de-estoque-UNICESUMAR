@@ -31,9 +31,10 @@ public class Controllers {
         do{
             System.out.println("ALTERAÇÃO");
             Scanner scan = new Scanner(System.in);
-            System.out.println(" ATENÇÃO: Essa opção só deve ser utilizada para correção do produto cadastrado");
-            System.out.println(" Para entrada e saída do estoque, utilizar a funcionalidade MOVIMENTAÇÃO");
-            System.out.println(" Deseja continuar e alterar a quantidade em estoque?");
+            System.out.println(" ATENÇÃO: Essa opção só deve ser utilizada para correção do produto cadastrado. \n" +
+                                "Para entrada e saída do estoque, utilizar a funcionalidade MOVIMENTAÇÃO\n" +
+                                "Deseja continuar e alterar as informações do produto?");
+
             String opcao = scan.next();
 
             if(confirmOperation(opcao)){

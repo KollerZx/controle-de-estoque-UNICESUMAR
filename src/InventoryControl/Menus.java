@@ -2,6 +2,8 @@ package InventoryControl;
 
 public class Menus {
     public static void menuMain(){
+        System.out.println("EMPRESA DE IMPORTAÇÃO DE PRODUTOS LTDA.\n" +
+                            "SISTEMA DE CONTROLE DE ESTOQUE\n");
         System.out.println("MENU PRINCIPAL");
         System.out.println("1 - CADASTRO DE PRODUTOS");
         System.out.println("2 - MOVIMENTAÇÃO");
@@ -12,6 +14,8 @@ public class Menus {
     }
 
     public static void menuRegister(){
+        System.out.println("EMPRESA DE IMPORTAÇÃO DE PRODUTOS LTDA.\n" +
+                            "SISTEMA DE CONTROLE DE ESTOQUE\n");
         System.out.println("CADASTRO DE PRODUTOS:");
         System.out.println("1.1 - INCLUSÃO");
         System.out.println("1.2 - ALTERAÇÃO");
@@ -24,6 +28,8 @@ public class Menus {
     }
 
     public static void menuInventoryMovement(){
+        System.out.println("EMPRESA DE IMPORTAÇÃO DE PRODUTOS LTDA.\n" +
+                            "SISTEMA DE CONTROLE DE ESTOQUE\n");
         System.out.println("MOVIMENTAÇÃO:");
         System.out.println("1 - ENTRADA");
         System.out.println("2 - SAÍDA");

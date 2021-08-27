@@ -16,6 +16,7 @@ public class InventoryControl {
             Scanner scan = new Scanner(System.in);
             /* CRIA UM ESTOQUE, QUE PODERÁ CONTER 10 DE TIPOS DE PRODUTOS, QUE SÃO SEPARADOS POR DEPARTAMENTO*/
             RegisterProducts estoque = new RegisterProducts(DEPARTAMENTS);
+            Controllers controllers = new Controllers();
             while(opcao!=0){
                 Menus.menuMain();
                 opcao = scan.nextInt();
@@ -24,7 +25,7 @@ public class InventoryControl {
                     case 0:
                         System.out.println("Deseja realmente sair do programa?");
                         String option =scan.next();
-                        if(Controllers.confirmOperation(option)){
+                        if(controllers.confirmOperation(option)){
                             continue;
                         }
                         opcao = 1;
@@ -35,22 +36,22 @@ public class InventoryControl {
                         opcao = scan.nextInt();
 //                      INCLUSÃO DE PRODUTO
                         if(opcao == 1){
-                            Controllers.includeProduct(estoque);
+                            controllers.includeProduct(estoque);
                             break;
                         }
 //                      ALTERAÇÃO DE PRODUTO
                         else if(opcao == 2){
-                            Controllers.changeProduct(estoque);
+                            controllers.changeProduct(estoque);
                             break;
                         }
 //                      CONSULTA PRODUTO POR NOME
                         else if(opcao == 3){
-                            Controllers.findProduct(estoque);
+                            controllers.findProduct(estoque);
                             break;
                         }
 //                      EXCLUSÃO DE PRODUTO
                         else if(opcao == 4){
-                            Controllers.removeProduct(estoque);
+                            controllers.removeProduct(estoque);
                             break;
                         }
 //                      RETORNAR AO MENU ANTERIOR
@@ -71,22 +72,22 @@ public class InventoryControl {
                         }
 //                      ENTRADA
                         else if(opcao == 1){
-                            Controllers.inputStock(estoque);
+                            controllers.inputStock(estoque);
                             break;
                         }
 //                      SAÍDA
                         else if(opcao == 2){
-                            Controllers.outputStock(estoque);
+                            controllers.outputStock(estoque);
                             break;
                         }
 
 //                  REAJUSTE DE PREÇOS
                     case 3:
-                        Controllers.percentPriceAdjust(estoque);
+                        controllers.percentPriceAdjust(estoque);
                         break;
 //                  RELATÓRIOS
                     case 4:
-                        Controllers.reportProducts(estoque);
+                        controllers.reportProducts(estoque);
                         break;
                     default:
                         System.out.println("Escolha uma opção válida");
